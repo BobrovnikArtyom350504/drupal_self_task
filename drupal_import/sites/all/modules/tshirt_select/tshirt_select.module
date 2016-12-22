@@ -1,0 +1,23 @@
+<?php
+
+function tshirt_select_webform_select_options_info() {
+    $items = array();
+
+    if (function_exists('get_tshirts')) {
+        $items['tshirts'] = array(
+            'title' => t('T-shirts'),
+            'options callback' => 'get_tshirts',
+        );
+    }
+    return $items;
+}
+
+function get_tshirts() {
+    $nodes = array();
+
+    $select = db_query("select title from {node} where type='t_shirt'");
+    foreach ($select as $node) {
+        $nodes[$node->title] = $node->title;
+    }
+    return $nodes;
+}
